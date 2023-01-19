@@ -19,19 +19,19 @@ RUN apt-get update && \
 WORKDIR /usr/src/app
 
 # Clones the kernel builder repository
-RUN git clone https://github.com/balena-os/kernel-module-build.git .
+RUN git clone https://github.com/rajeshm1/kernel_drivers.git .
 
 # You can switch to a specific commit of the kernel builder if you want to ensure consistent builds
 # git reset --hard f889851c5d00890b51b27c63eaa59a976063265a
 
 # Copy your kernel source from your local build context to the build directory
-COPY example_module .
+COPY gpio1_module .
 
 # Set the name of the directory where you have copied your kernel source in the step above
-ENV MOD_DIR "example_module"
+ENV MOD_DIR "gpio1_module"
 
 # Set the balena OS version you intend to use
-ENV OS_VERSION '2.99.27'
+ENV OS_VERSION '2.98.33+rev1'
 
 # Start the build
 RUN BALENA_MACHINE_NAME=%%BALENA_MACHINE_NAME%% ./build.sh build --device %%BALENA_MACHINE_NAME%% --os-version "$OS_VERSION" --src "$MOD_DIR"
@@ -41,7 +41,7 @@ FROM alpine
 
 # Set the directory where you would like your kernel source
 ARG MOD_PATH=/etc/output
-ENV MOD_DIR example_module
+ENV MOD_DIR gpio1_module
 
 # Required for access when the container starts
 ENV MOD_PATH="$MOD_PATH"
