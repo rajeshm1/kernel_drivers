@@ -14,13 +14,15 @@ RUN apt-get update && \
     git \
     libelf-dev \
     libssl-dev \
-    wget \
-    kmod
+    wget
+    
 
 WORKDIR /usr/src/app
 
 # Clones the kernel builder repository
 RUN git clone https://github.com/rajeshm1/kernel_drivers.git .
+
+RUN apt-get -y install kmod
 
 # You can switch to a specific commit of the kernel builder if you want to ensure consistent builds
 # git reset --hard f889851c5d00890b51b27c63eaa59a976063265a
